@@ -1,0 +1,101 @@
+.body-container {
+    min-height: 600px;
+}
+
+#header-container {
+    display: flex;
+    padding: 20px 0 10px;
+    margin-top: 15px;
+    align-items: center;
+}
+
+#header-container h1 {
+    font-size: 22px;
+    flex-grow: 1;
+    margin: 0;
+}
+
+#header-container form {
+display: flex;
+}
+
+#header-container form .search {
+    width: 250px;
+}
+
+#header-container form button {
+    width: 50px;
+}
+
+.sidebar-nav {
+width: 200px;
+padding: 40px 20px 20px;
+box-sizing: border-box;
+}
+
+.page-title {
+font-size: 22px;
+padding: 20px 0 10px;
+margin-top: 15px;
+}
+
+.sidebar-nav .nav-item {
+display: flex;
+line-height: 18px;
+margin-bottom: 10px;
+font-size: 15px;
+}
+
+.sidebar-nav .nav-item svg{
+color: #fff;
+margin-right: 15px;
+}
+
+.sidebar-nav .nav-link {
+padding: 0 0 20px 0;
+}
+
+.filter-container {
+background-color: #ffffff;
+width: 100%;
+height: auto;
+margin: 20px 0;
+padding: 20px;
+}
+
+.filter-container .row {
+    display: flex;
+    height: 50px;
+}
+
+.filter-container select {
+max-width: 200px;
+margin: 0 5px;
+}
+
+.filter-container input[type=date] {
+max-width: 160px;
+margin: 0 5px;
+}
+
+.filter-container .search-button {
+max-width: 50px;
+margin: 0 5px;
+}
+
+.error {
+    color: #ff0000;
+    font-weight: 600;
+}
+
+.export_form {
+    text-align: right;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+@media (min-width: 1200px) {
+.header-container {
+    max-width: 100%;
+}
+}
