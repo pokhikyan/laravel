@@ -94,6 +94,18 @@ margin: 0 5px;
     padding-top: 10px;
 }
 
+.filter_form .select2-selection.select2-selection--single,
+.filter_form .select2-selection__rendered,
+.select2-selection__arrow {
+    height: 37px!important;
+    line-height: 35px!important;
+}
+
+.select2.select2-container.select2-container--default {
+    margin-right: 10px;
+}
+
+    
 @media (min-width: 1200px) {
 .header-container {
     max-width: 100%;
