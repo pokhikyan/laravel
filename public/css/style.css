@@ -105,7 +105,26 @@ margin: 0 5px;
     margin-right: 10px;
 }
 
-    
+.section {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #ffffff;
+    width: 50%;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.vac_count_cont {
+    margin-top: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.vac_count_cont p {
+    margin: 0;
+}
+
 @media (min-width: 1200px) {
 .header-container {
     max-width: 100%;

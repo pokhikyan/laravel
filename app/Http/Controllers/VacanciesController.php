@@ -226,7 +226,7 @@ class VacanciesController extends Controller
     {
 
         $vacancies = $this->filter_query(5000);
-        $headings = ['id','company','job_id','city','job_title','job_type','contract_type','job_category','job_description','job_url','opening_date','created_at'];
+        $headings = ['id','company','job_id','city','job_title','job_type','contract_type','job_category','job_level','job_description','job_url','opening_date','created_at'];
 
         ini_set('memory_limit', '512M');
 
