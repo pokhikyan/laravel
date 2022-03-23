@@ -104,8 +104,9 @@ class Covestro extends DataScan {
 
                     $json = $this->do_curl($args);
                     $result = json_decode($json, 1);
-                    $id = Vacancies::select('id')->where([ [ 'job_url', $url ], [ 'website_id', $website->id ] ])->first();
+                    $id = Vacancies::select('id')->where([ [ 'job_url', $url ], [ 'website_id', $website->id ] ])->value('id');
                     if ( !empty($id) ) {
+                        Vacancies::where('id', $id)->update(['updated_at' => date("Y-m-d H:i:s")]);
                         continue;
                     }
                     $data = json_decode($result['structuredDataAttributes']['data'], 1);

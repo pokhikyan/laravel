@@ -72,8 +72,9 @@ class Bayer extends DataScan {
                     $id = Vacancies::select('id')->where([
                                                              [ 'job_id', $job_id ],
                                                              [ 'website_id', $website->id ]
-                                                         ])->first();
+                                                         ])->value('id');
                     if ( !empty($id) ) {
+                        Vacancies::where('id', $id)->update(['updated_at' => date("Y-m-d H:i:s")]);
                         continue;
                     }
 

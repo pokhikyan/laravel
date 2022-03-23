@@ -49,8 +49,9 @@ class Henkel extends DataScan {
                     $id = Vacancies::select('id')->where([
                                                              [ 'job_id', $data['id'] ],
                                                              [ 'website_id', $website->id ]
-                                                         ])->first();
+                                                         ])->value('id');
                     if ( !empty($id)  || strpos($data['company']['name'], 'Henkel') === false ) {
+                        Vacancies::where('id', $id)->update(['updated_at' => date("Y-m-d H:i:s")]);
                         continue;
                     }
                     $this->vacancies = new Vacancies();

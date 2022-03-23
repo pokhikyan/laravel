@@ -47,8 +47,9 @@ class Telekom extends DataScan {
         foreach ( $jobs as $data ) {
             try {
                 $job_url = 'https://www.telekom.com/'.$data['url'];
-                $id = Vacancies::select('id')->where([ [ 'job_url', $job_url ], [ 'website_id', $website->id ] ])->first();
-                if( !empty($id) ) {
+                $id = Vacancies::select('id')->where([ [ 'job_url', $job_url ], [ 'website_id', $website->id ] ])->value('id');
+                if ( !empty($id) ) {
+                    Vacancies::where('id', $id)->update(['updated_at' => date("Y-m-d H:i:s")]);
                     continue;
                 }
 

@@ -52,9 +52,10 @@ class Fresenius extends DataScan {
                 continue;
               }
               $job_url = str_replace('https://frontend-production:3000', 'https://karriere.fresenius.de', $job_url);
-              $id = Vacancies::select('id')->where([ [ 'job_url', $job_url ], [ 'website_id', $website->id ] ])->first();
-              if( !empty($id) ) {
-                continue;
+              $id = Vacancies::select('id')->where([ [ 'job_url', $job_url ], [ 'website_id', $website->id ] ])->value('id');
+              if ( !empty($id) ) {
+                  Vacancies::where('id', $id)->update(['updated_at' => date("Y-m-d H:i:s")]);
+                  continue;
               }
               /* $html = $this->do_curl($job_url);*/
               $args =  array(

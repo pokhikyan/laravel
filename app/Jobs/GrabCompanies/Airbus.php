@@ -60,8 +60,9 @@ class Airbus extends DataScan {
 
                     $job_url = 'https://ag.wd3.myworkdayjobs.com/en-US/Airbus' . $job['externalPath'];
                     $job_id = $job['bulletFields'][0];
-                    $id = Vacancies::select('id')->where([ [ 'job_id', $job_id ], [ 'website_id', $website->id ] ])->first();
+                    $id = Vacancies::select('id')->where([ [ 'job_id', $job_id ], [ 'website_id', $website->id ] ])->value('id');
                     if( !empty($id) ) {
+                        Vacancies::where('id', $id)->update(['updated_at' => date("Y-m-d H:i:s")]);
                         continue;
                     }
 

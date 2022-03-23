@@ -48,8 +48,9 @@ class Puma extends DataScan {
         foreach ( $jobs as $job ) {
             try {
                 $jobid = $job['jobitemid'];
-                $id = Vacancies::select('id')->where([ [ 'job_id', $jobid ], [ 'website_id', $website->id ] ])->first();
-                if( !empty($id) ) {
+                $id = Vacancies::select('id')->where([ [ 'job_id', $jobid ], [ 'website_id', $website->id ] ])->value('id');
+                if ( !empty($id) ) {
+                    Vacancies::where('id', $id)->update(['updated_at' => date("Y-m-d H:i:s")]);
                     continue;
                 }
 

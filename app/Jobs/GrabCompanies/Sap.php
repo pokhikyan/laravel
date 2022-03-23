@@ -62,8 +62,9 @@ class Sap extends DataScan {
                 preg_match('/data-careersite-propertyid="facility">(.*?)<\/span>/s', $html, $matches);
                 $job_id = isset($matches[1]) ? trim($matches[1]) : '';
 
-                $id = Vacancies::select('id')->where([ [ 'job_id', $job_id ], [ 'website_id', $website->id ] ])->first();
-                if( !empty($id) ) {
+                $id = Vacancies::select('id')->where([ [ 'job_id', $job_id ], [ 'website_id', $website->id ] ])->value('id');
+                if ( !empty($id) ) {
+                    Vacancies::where('id', $id)->update(['updated_at' => date("Y-m-d H:i:s")]);
                     continue;
                 }
                 $this->vacancies = new Vacancies();

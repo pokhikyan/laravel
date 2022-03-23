@@ -74,13 +74,13 @@ margin: 0 5px;
 }
 
 .filter-container input[type=date] {
-max-width: 160px;
-margin: 0 5px;
+    max-width: 160px;
+    margin: 0 5px;
 }
 
 .filter-container .search-button {
-max-width: 50px;
-margin: 0 5px;
+    max-width: 50px;
+    margin: 0 5px;
 }
 
 .error {
@@ -123,6 +123,16 @@ margin: 0 5px;
 
 .vac_count_cont p {
     margin: 0;
+}
+
+.filter_col {
+    margin: 0 10px;
+    text-align: center;
+}
+.filter_label {
+    display: block;
+    margin: 0;
+    line-height: 15px;
 }
 
 @media (min-width: 1200px) {

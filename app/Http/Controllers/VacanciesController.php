@@ -21,6 +21,7 @@ class VacanciesController extends Controller
     public $start_date;
     public $end_date;
     public $search;
+    public $active_jobs;
     public $export_type;
 
     public function __construct(Request $request) {
@@ -33,6 +34,7 @@ class VacanciesController extends Controller
         $this->start_date = $request->has('start_date') ? strip_tags($request->get('start_date')) : '';
         $this->end_date = $request->has('end_date') ? strip_tags($request->get('end_date')) : '';
         $this->search = $request->has('search') ? strip_tags($request->get('search')) : '';
+        $this->active_jobs = $request->has('active_jobs') ? strip_tags($request->get('active_jobs')) : 0;
         $this->export_type = $request->has('export_type') ? strip_tags($request->get('export_type')) : 'xlsx';
     }
 
@@ -119,6 +121,9 @@ class VacanciesController extends Controller
             $query->where('vacancies.opening_date', '>=', date("Y-m-d", strtotime($this->start_date)));
         })->when($this->end_date != '', function( $query ) {
             $query->where('vacancies.opening_date', '<', date("Y-m-d", strtotime($this->end_date)));
+        })->when($this->active_jobs != 0, function( $query ) {
+            $compare_date = date('Y-m-d', strtotime('-3 day', time()));
+            $query->where('vacancies.updated_at', '>', $compare_date);
         })->latest('vacancies.created_at')->paginate($pagecount);
 
         return $vacancies;

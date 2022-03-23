@@ -44,8 +44,9 @@ class Allianz extends DataScan {
             try {
                 if( empty($data["loc"]) ) continue;
                 $job_url = $data["loc"];
-                $id = Vacancies::select('id')->where([ [ 'job_url', $job_url ], [ 'website_id', $website->id ] ])->first();
-                if( !empty($id) ) {
+                $id = Vacancies::select('id')->where([ [ 'job_url', $job_url ], [ 'website_id', $website->id ] ])->value('id');
+                if ( !empty($id) ) {
+                    Vacancies::where('id', $id)->update(['updated_at' => date("Y-m-d H:i:s")]);
                     continue;
                 }
                 $html = file_get_contents($job_url);

@@ -52,8 +52,9 @@ class Daimler extends DataScan {
                 if( !isset($data['PositionLocation'][0]['CountryCode']) || (isset($data['PositionLocation'][0]['CountryCode']) && $data['PositionLocation'][0]['CountryCode'] !== 'DE') ) {
                     continue;
                 }
-                $id = Vacancies::select('id')->where([ [ 'job_id', $data['PositionID'] ], [ 'website_id', $website->id ] ])->first();
+                $id = Vacancies::select('id')->where([ [ 'job_id', $data['PositionID'] ], [ 'website_id', $website->id ] ])->value('id');
                 if( !empty($id) ) {
+                    Vacancies::where('id', $id)->update(['updated_at' => date("Y-m-d H:i:s")]);
                     continue;
                 }
 

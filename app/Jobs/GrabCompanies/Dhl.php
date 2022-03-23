@@ -54,8 +54,9 @@ class Dhl extends DataScan {
 
         foreach ( $jobs as $job ) {
             try {
-                $id = Vacancies::select('id')->where([ [ 'job_id', $job['jobId'] ], [ 'website_id', $website->id ] ])->first();
+                $id = Vacancies::select('id')->where([ [ 'job_id', $job['jobId'] ], [ 'website_id', $website->id ] ])->value('id');
                 if( !empty($id) ) {
+                    Vacancies::where('id', $id)->update(['updated_at' => date("Y-m-d H:i:s")]);
                     continue;
                 }
                 $this->vacancies = new Vacancies();

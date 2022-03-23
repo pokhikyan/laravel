@@ -72,8 +72,9 @@ class Zalando extends DataScan {
             try {
                 $job_id = $job['id'];
 
-                $id = Vacancies::select('id')->where([ [ 'job_id', $job_id ], [ 'website_id', $website->id ] ])->first();
-                if( !empty($id) ) {
+                $id = Vacancies::select('id')->where([ [ 'job_id', $job_id ], [ 'website_id', $website->id ] ])->value('id');
+                if ( !empty($id) ) {
+                    Vacancies::where('id', $id)->update(['updated_at' => date("Y-m-d H:i:s")]);
                     continue;
                 }
                 $this->vacancies = new Vacancies();
