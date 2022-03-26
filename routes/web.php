@@ -18,6 +18,9 @@ use App\Http\Controllers\CacheController;
 Route::get('/', ['middleware' => 'auth', 'as' => 'dashboard.list', 'uses' => 'App\Http\Controllers\DashboardController@index']);
 Route::get('/dashboard', ['middleware' => 'auth', 'as' => 'dashboard.list', 'uses' => 'App\Http\Controllers\DashboardController@index']);
 
+Route::get('/settings', ['middleware' => 'auth', 'as' => 'settings.list', 'uses' => 'App\Http\Controllers\SettingsController@index']);
+Route::post('/settings/update', ['middleware' => 'auth', 'as' => 'settings.update', 'uses' => 'App\Http\Controllers\SettingsController@update']);
+
 //Route::get('scan/{name?}', ['as' => 'data.scan', 'uses' => 'DataController@scan'])->where('name', '[A-Za-z-_]+');
 Route::get('/cache_clear', ['middleware' => 'auth', 'as' => 'cache.clear', 'uses' => 'App\Http\Controllers\CacheController@clear']);
 

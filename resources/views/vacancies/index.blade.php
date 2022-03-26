@@ -110,29 +110,34 @@
         <table class="table table-hover table-striped">
         <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Company</th>
-            <th scope="col">City</th>
-            <th scope="col">Title</th>
-            <th scope="col">Type</th>
-            <th scope="col">Level</th>
-            <th scope="col">Category</th>
-            <th scope="col">Date</th>
+            <?php
+            $settings = json_decode($settings, 1);
+            $columns = array_column($settings, 'order');
+            array_multisort($columns, SORT_ASC, $settings);
+            foreach ( $settings as $setting ) {
+                if($setting['status'] == 0 ) continue;
+                ?>
+                <th scope="col">{{$setting['title']}}</th>
+            <?php
+            }
+            ?>
             <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
         @foreach ($vacancies as $vacancy)
-            <?php //$company = \App\Models\Websites::find($vacancy->website_id)->company; ?>
             <tr>
-                <td>{{$vacancy->id}}</td>
-                <td>{{$vacancy->company}}</td>
-                <td>{{$vacancy->city}}</td>
-                <td>{{$vacancy->job_title}}</td>
-                <td>{{$vacancy->job_type}}</td>
-                <td>{{$vacancy->job_level}}</td>
-                <td>{{$vacancy->job_category}}</td>
-                <td>{{$vacancy->opening_date}}</td>
+                <?php foreach ( $settings as $key => $setting ) {
+                if($setting['status'] == 0 ) continue;
+                ?>
+                    <?php if($key == 'job_description') { ?>
+                        <td>{{substr($vacancy->$key, 0, 200)}}...</td>
+                    <?php } elseif($key == 'website_id') { ?>
+                        <td>{{$vacancy->company}}</td>
+                    <?php } else { ?>
+                        <td>{{$vacancy->$key}}</td>
+                    <?php } ?>
+                <?php } ?>
                 <td class="flex-md-row">
                     <a href="{{$vacancy->job_url}}" target="_blank" title="Open in site">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
@@ -142,6 +147,7 @@
                     </a>
                 </td>
             </tr>
+
         @endforeach
         </tbody>
     </table>

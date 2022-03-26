@@ -69,18 +69,18 @@ class Linde extends DataScan {
                     $this->vacancies->job_id = $data['id'];
                     $this->vacancies->location = $data['location'];
                     $this->vacancies->job_title = $data['title'];
-                    $this->vacanciescity = $data['location'];
-                    $this->vacanciesjob_url = 'https://www.xing.com/jobs/' . $data['slug'];
-                    $this->vacanciesopening_date = date("Y-m-d", strtotime($data['activatedAt']));
+                    $this->vacancies->city = $data['location'];
+                    $this->vacancies->job_url = 'https://www.xing.com/jobs/' . $data['slug'];
+                    $this->vacancies->opening_date = date("Y-m-d", strtotime($data['activatedAt']));
                     $args = array(
-                        'url' => $this->vacanciesjob_url,
+                        'url' => $this->vacancies->job_url,
                         'method' => 'GET',
                     );
                     $html = $this->do_curl($args);
                     preg_match('/\<script data-rh="true" type\="application\/ld\+json">(.*?)<\/script>/s', $html, $json);
                     $data = json_decode($json[1], 1);
-                    $this->vacanciesjob_type = $data['employmentType'];
-                    $this->vacanciesjob_category = $data['industry'];
+                    $this->vacancies->job_type = $data['employmentType'];
+                    $this->vacancies->job_category = $data['industry'];
                     $this->vacancies->job_description = $data['description'];
                     $this->vacancies->save();
                 } catch (\Throwable $e) {

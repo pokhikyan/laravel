@@ -48,7 +48,7 @@ class VacanciesController extends Controller
         }
 
         $vacancies = Vacancies::join('websites', 'websites.id', '=', 'vacancies.website_id')
-            ->select(['vacancies.id', 'websites.company','vacancies.job_id','vacancies.city','vacancies.job_title','vacancies.job_type','vacancies.job_level','vacancies.contract_type','vacancies.job_category','vacancies.job_description','vacancies.job_url','vacancies.opening_date','vacancies.created_at'])
+            ->select(['vacancies.id', 'websites.company','vacancies.job_id','vacancies.location','vacancies.city','vacancies.job_title','vacancies.job_type','vacancies.job_level','vacancies.contract_type','vacancies.job_category','vacancies.job_description','vacancies.job_url','vacancies.deadline','vacancies.opening_date','vacancies.created_at','vacancies.updated_at'])
             ->where('vacancies.id', '!=', 0)
             ->when($this->company != 0, function( $query ) {
             $query->where('vacancies.website_id', '=', $this->company);
@@ -164,8 +164,8 @@ class VacanciesController extends Controller
                 unset($categories[$key]);
             }
         }
-
-        return view('vacancies.index', compact('vacancies','websites', 'get_data', 'categories', 'cities', 'regions'))
+        $settings = DB::table('settings')->where('id',1)->value('vacancies_columns');
+        return view('vacancies.index', compact('vacancies','websites', 'get_data', 'categories', 'cities', 'regions', 'settings'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
