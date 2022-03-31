@@ -18,6 +18,14 @@ use App\Http\Controllers\CacheController;
 Route::get('/', ['middleware' => 'auth', 'as' => 'dashboard.list', 'uses' => 'App\Http\Controllers\DashboardController@index']);
 Route::get('/dashboard', ['middleware' => 'auth', 'as' => 'dashboard.list', 'uses' => 'App\Http\Controllers\DashboardController@index']);
 
+Route::get('/users', ['middleware' => 'auth', 'as' => 'users.list', 'uses' => 'App\Http\Controllers\UserController@index']);
+Route::get('/users/{id}/edit', ['middleware' => 'auth', 'as' => 'user.edit', 'uses' => 'App\Http\Controllers\UserController@edit']);
+Route::post('/users/update', ['middleware' => 'auth', 'as' => 'user.update', 'uses' => 'App\Http\Controllers\UserController@update']);
+Route::get('/users/create', ['middleware' => 'auth', 'as' => 'user.create', 'uses' => 'App\Http\Controllers\UserController@create']);
+Route::post('/users/store', ['middleware' => 'auth', 'as' => 'user.store', 'uses' => 'App\Http\Controllers\UserController@store']);
+Route::get('/users/{id}/delete', ['middleware' => 'auth', 'as' => 'user.delete', 'uses' => 'App\Http\Controllers\UserController@delete']);
+
+
 Route::get('/settings', ['middleware' => 'auth', 'as' => 'settings.list', 'uses' => 'App\Http\Controllers\SettingsController@index']);
 Route::post('/settings/update', ['middleware' => 'auth', 'as' => 'settings.update', 'uses' => 'App\Http\Controllers\SettingsController@update']);
 

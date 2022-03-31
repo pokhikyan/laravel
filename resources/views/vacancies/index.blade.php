@@ -25,28 +25,28 @@
     <div class="filter-container">
         <form method="get" action="{{route('vacancy.list')}}" class="filter_form">
             <div class="row">
-            <select name="company" class="form-control">
+            <select name="company" class="form-control form-control-select2">
                 <option value="0">All Companies</option>
                 @foreach ($websites as $website)
                     <option value="{{$website->id}}" @if($website->id == request('company'))  {{'selected'}} @endif >{{$website->company}}</option>
                 @endforeach
             </select>
 
-            <select name="region" class="form-control">
+            <select name="region" class="form-control form-control-select2">
                 <option value="0">All regions</option>
                 @foreach ($regions as $region)
                     <option value="{{strip_tags(trim($region->id))}}" @if(strip_tags(trim($region->id)) == request('region'))  {{'selected'}} @endif >{{strip_tags(trim($region->name))}}</option>
                 @endforeach
             </select>
 
-            <select name="city" class="form-control">
+            <select name="city" class="form-control form-control-select2">
                 <option value="0">All cities</option>
                 @foreach ($cities as $city)
                     <option value="{{strip_tags(trim($city))}}" @if(strip_tags(trim($city)) == request('city'))  {{'selected'}} @endif >{{strip_tags(trim($city))}}</option>
                 @endforeach
             </select>
 
-            <select name="job_category" class="form-control">
+            <select name="job_category" class="form-control form-control-select2">
                 <option value="0">All Categories</option>
 
                 @foreach ($categories as $category)
@@ -54,7 +54,7 @@
                 @endforeach
             </select>
 
-            <select name="job_type" class="form-control">
+            <select name="job_type" class="form-control form-control-select2">
                 <option value="0">All types</option>
                 <option value="1" @if(request('job_type') == 1)  {{'selected'}} @endif>Full time</option>
                 <option value="2" @if(request('job_type') == 2)  {{'selected'}} @endif>Permanent</option>
@@ -67,7 +67,7 @@
 
             </div>
             <div class="row">
-                <select name="job_level" class="form-control">
+                <select name="job_level" class="form-control form-control-select2">
                     <option value="0">All levels</option>
                     <option value="1" @if(request('job_level') == 1)  {{'selected'}} @endif>Professional</option>
                     <option value="2" @if(request('job_level') == 2)  {{'selected'}} @endif>Mid level</option>
