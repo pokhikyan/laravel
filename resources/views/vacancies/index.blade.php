@@ -48,25 +48,33 @@
 
             <select name="job_category" class="form-control form-control-select2">
                 <option value="0">All Categories</option>
-
-                @foreach ($categories as $category)
-                    <option value="{{strip_tags(trim($category->job_category))}}" @if(strip_tags(trim($category->job_category)) == request('job_category'))  {{'selected'}} @endif >{{strip_tags(trim($category->job_category))}}</option>
+                @foreach ($categories as $key => $category)
+                    <option value="{{strip_tags(trim($key))}}" @if(strip_tags(trim($key)) == request('job_category'))  {{'selected'}} @endif >{{strip_tags(trim($key))}}</option>
                 @endforeach
             </select>
 
-            <select name="job_type" class="form-control form-control-select2">
-                <option value="0">All types</option>
-                <option value="1" @if(request('job_type') == 1)  {{'selected'}} @endif>Full time</option>
-                <option value="2" @if(request('job_type') == 2)  {{'selected'}} @endif>Permanent</option>
-                <option value="3" @if(request('job_type') == 3)  {{'selected'}} @endif>Temporary</option>
-                <option value="4" @if(request('job_type') == 4)  {{'selected'}} @endif>Internship</option>
-                <option value="5" @if(request('job_type') == 5)  {{'selected'}} @endif>Praktikum</option>
-                <option value="6" @if(request('job_type') == 6)  {{'selected'}} @endif>Part time</option>
-                <option value="7" @if(request('job_type') == 7)  {{'selected'}} @endif>Limited Duration</option>
+            <select name="job_sub_category" class="form-control form-control-select2" <?php echo !request('job_category') ? 'disabled' : ''?>>
+                <option value="0">All Sub Categories</option>
+
+                @foreach ($sub_categories as $sub_categorie)
+                        <option value="{{strip_tags(trim($sub_categorie))}}" @if(strip_tags(trim($sub_categorie)) == request('job_sub_category'))  {{'selected'}} @endif >{{strip_tags(trim($sub_categorie))}}</option>
+                @endforeach
             </select>
+
 
             </div>
             <div class="row">
+                <select name="job_type" class="form-control form-control-select2">
+                    <option value="0">All types</option>
+                    <option value="1" @if(request('job_type') == 1)  {{'selected'}} @endif>Full time</option>
+                    <option value="2" @if(request('job_type') == 2)  {{'selected'}} @endif>Permanent</option>
+                    <option value="3" @if(request('job_type') == 3)  {{'selected'}} @endif>Temporary</option>
+                    <option value="4" @if(request('job_type') == 4)  {{'selected'}} @endif>Internship</option>
+                    <option value="5" @if(request('job_type') == 5)  {{'selected'}} @endif>Praktikum</option>
+                    <option value="6" @if(request('job_type') == 6)  {{'selected'}} @endif>Part time</option>
+                    <option value="7" @if(request('job_type') == 7)  {{'selected'}} @endif>Limited Duration</option>
+                </select>
+
                 <select name="job_level" class="form-control form-control-select2">
                     <option value="0">All levels</option>
                     <option value="1" @if(request('job_level') == 1)  {{'selected'}} @endif>Professional</option>
