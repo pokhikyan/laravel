@@ -22,38 +22,43 @@
         </div>
     @endif
 
+    <?php
+    $settings = json_decode($settings, 1);
+    $filters = isset($settings['filters']) ? $settings['filters'] : $settings;
+    ?>
     <div class="filter-container">
         <form method="get" action="{{route('vacancy.list')}}" class="filter_form">
             <div class="row">
-            <select name="company" class="form-control form-control-select2">
+
+            <select name="company" class="form-control form-control-select2 <?php echo !$filters['companies']['status'] ? 'hidden' : '' ?>">
                 <option value="0">All Companies</option>
                 @foreach ($websites as $website)
                     <option value="{{$website->id}}" @if($website->id == request('company'))  {{'selected'}} @endif >{{$website->company}}</option>
                 @endforeach
             </select>
 
-            <select name="region" class="form-control form-control-select2">
+            <select name="region" class="form-control form-control-select2 <?php echo !$filters['regions']['status'] ? 'hidden' : '' ?>">
                 <option value="0">All regions</option>
                 @foreach ($regions as $region)
                     <option value="{{strip_tags(trim($region->id))}}" @if(strip_tags(trim($region->id)) == request('region'))  {{'selected'}} @endif >{{strip_tags(trim($region->name))}}</option>
                 @endforeach
             </select>
 
-            <select name="city" class="form-control form-control-select2">
+            <select name="city" class="form-control form-control-select2 <?php echo !$filters['cities']['status'] ? 'hidden' : '' ?>">
                 <option value="0">All cities</option>
                 @foreach ($cities as $city)
                     <option value="{{strip_tags(trim($city))}}" @if(strip_tags(trim($city)) == request('city'))  {{'selected'}} @endif >{{strip_tags(trim($city))}}</option>
                 @endforeach
             </select>
 
-            <select name="job_category" class="form-control form-control-select2">
+            <select name="job_category" class="form-control form-control-select2 <?php echo !$filters['categories']['status'] ? 'hidden' : '' ?>">
                 <option value="0">All Categories</option>
                 @foreach ($categories as $key => $category)
                     <option value="{{strip_tags(trim($key))}}" @if(strip_tags(trim($key)) == request('job_category'))  {{'selected'}} @endif >{{strip_tags(trim($key))}}</option>
                 @endforeach
             </select>
 
-            <select name="job_sub_category" class="form-control form-control-select2" <?php echo !request('job_category') ? 'disabled' : ''?>>
+            <select name="job_sub_category" class="form-control form-control-select2 <?php echo !$filters['sub_categories']['status'] ? 'hidden' : '' ?>" <?php echo !request('job_category') ? 'disabled' : ''?>>
                 <option value="0">All Sub Categories</option>
 
                 @foreach ($sub_categories as $sub_categorie)
@@ -64,7 +69,7 @@
 
             </div>
             <div class="row">
-                <select name="job_type" class="form-control form-control-select2">
+                <select name="job_type" class="form-control form-control-select2 <?php echo !$filters['job_type']['status'] ? 'hidden' : '' ?>">
                     <option value="0">All types</option>
                     <option value="1" @if(request('job_type') == 1)  {{'selected'}} @endif>Full time</option>
                     <option value="2" @if(request('job_type') == 2)  {{'selected'}} @endif>Permanent</option>
@@ -75,7 +80,7 @@
                     <option value="7" @if(request('job_type') == 7)  {{'selected'}} @endif>Limited Duration</option>
                 </select>
 
-                <select name="job_level" class="form-control form-control-select2">
+                <select name="job_level" class="form-control form-control-select2 <?php echo !$filters['job_level']['status'] ? 'hidden' : '' ?>">
                     <option value="0">All levels</option>
                     <option value="1" @if(request('job_level') == 1)  {{'selected'}} @endif>Professional</option>
                     <option value="2" @if(request('job_level') == 2)  {{'selected'}} @endif>Mid level</option>
@@ -83,10 +88,10 @@
                     <option value="4" @if(request('job_level') == 4  )  {{'selected'}} @endif>Praktikum</option>
                 </select>
 
-                <input type="date" name="start_date" class="form-control" value="{{request('start_date')}}">
-                <input type="date" name="end_date" class="form-control" value="{{request('end_date')}}">
+                <input type="date" name="start_date" class="form-control <?php echo !$filters['start_date']['status'] ? 'hidden' : '' ?>" value="{{request('start_date')}}">
+                <input type="date" name="end_date" class="form-control end_date <?php echo !$filters['end_date']['status'] ? 'hidden' : '' ?>" value="{{request('end_date')}}">
 
-                 <div class="filter_col">
+                 <div class="filter_col <?php echo !$filters['active_jobs']['status'] ? 'hidden' : '' ?>">
                     <label class="filter_label">Active Jobs</label>
                     <input type="checkbox" name="active_jobs" value="1" <?php echo (request('active_jobs'))?'checked':'' ?>>
                  </div>
@@ -119,7 +124,7 @@
         <thead>
         <tr>
             <?php
-            $settings = json_decode($settings, 1);
+            $settings = isset($settings['columns']) ? $settings['columns'] : $settings;
             $columns = array_column($settings, 'order');
             array_multisort($columns, SORT_ASC, $settings);
             foreach ( $settings as $setting ) {

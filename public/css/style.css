@@ -113,6 +113,7 @@ margin: 0 5px;
     width: 50%;
     box-sizing: border-box;
     display: inline-block;
+    margin-right: 10px;
 }
 
 .vac_count_cont {
@@ -133,6 +134,15 @@ margin: 0 5px;
     display: block;
     margin: 0;
     line-height: 15px;
+}
+
+.settings-container {
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.hidden  {
+    display: none!important;
 }
 
 @media (min-width: 1200px) {

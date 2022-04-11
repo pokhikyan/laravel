@@ -34,7 +34,7 @@ $(document).ready(function () {
 
     })
 */
-    $('.form-control-select2').select2();
+    $('.form-control-select2').not( ".hidden" ).select2();
 });
 
 function set_filter_data( export_type ) {
