@@ -82,10 +82,9 @@
 
                 <select name="job_level" class="form-control form-control-select2 <?php echo !$filters['job_level']['status'] ? 'hidden' : '' ?>">
                     <option value="0">All levels</option>
-                    <option value="1" @if(request('job_level') == 1)  {{'selected'}} @endif>Professional</option>
-                    <option value="2" @if(request('job_level') == 2)  {{'selected'}} @endif>Mid level</option>
-                    <option value="3" @if(request('job_level') == 3  )  {{'selected'}} @endif>Student</option>
-                    <option value="4" @if(request('job_level') == 4  )  {{'selected'}} @endif>Praktikum</option>
+                    @foreach ($levels as $key => $level)
+                        <option value="{{strip_tags(trim($key))}}" @if(strip_tags(trim($key)) == request('job_level'))  {{'selected'}} @endif >{{strip_tags(trim($key))}}</option>
+                    @endforeach
                 </select>
 
                 <input type="date" name="start_date" class="form-control <?php echo !$filters['start_date']['status'] ? 'hidden' : '' ?>" value="{{request('start_date')}}">
